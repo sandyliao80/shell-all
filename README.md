@@ -10,3 +10,4 @@
 ### mysql-bak.sh Mysql备份脚本
 ### lnmp-check.sh lnmp状态监控
 ### web-bak.sh Web备份脚本
+### ssl_check.sh SSL到期通知续签
