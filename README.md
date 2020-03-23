@@ -9,3 +9,4 @@
 ### ping_check.sh  ping服务器在线状态
 ### mysql-bak.sh Mysql备份脚本
 ### lnmp-check.sh lnmp状态监控
+### web-bak.sh Web备份脚本
