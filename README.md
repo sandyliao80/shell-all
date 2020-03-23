@@ -7,3 +7,4 @@
 
 ## 服务器维护脚本
 ### ping_check.sh  ping服务器在线状态
+### mysql-bak.sh Mysql备份脚本
