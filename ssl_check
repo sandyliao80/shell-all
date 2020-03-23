@@ -1,0 +1,25 @@
+#!/bin/bash
+# website: https://blog.e9china.net
+server_key=123456789 #server酱申请key http://sc.ftqq.com/
+CheckDomains="www.test.com test.com"
+Alert_Email="admin@test.com"
+Alert_Days="10"
+Cur_Dir=$(dirname $0)
+
+Check()
+{
+    Cur_Time=$(date +%s)
+    Expire_Date=$(curl -o /dev/null -m 10 --connect-timeout 10 -svIL https://${Domain} 2>&1|grep "expire date:"|sed 's/*\s\+expire date:\s\+//')
+    Expire_Time=$(date -d "${Expire_Date}" +%s)
+    Alert_Time=$((${Expire_Time}-${Alert_Days}*86400))
+    Expire_Date_Read=$(date -d @${Expire_Time} "+%Y-%m-%d")
+    echo "Domain:${Domain} Expire Date: ${Expire_Date_Read}"
+    if [ ${Cur_Time} -ge ${Alert_Time} ] &&  [ ${Alert_Email} != "" ] ; then
+        curl -d "text=域名:${Domain}SSL证书过期通知&desp=域名: ${Domain} SSL 证书将在 ${Expire_Date_Read} 到期" https://sc.ftqq.com/$server_key.send
+    fi
+    sleep 2
+}
+
+for Domain in ${CheckDomains[@]};do
+    Check ${Domain}
+done
